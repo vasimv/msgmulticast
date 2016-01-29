@@ -1,0 +1,7 @@
+0 - no status (should not be used)
+1 - emergency stop of all functions
+2 - minimum/silent mode (no bright lights, no noise)
+3 - walk mode
+4 - photo mode (no bright lights)
+5 - demo mode
+128 and higher - presentation modes (steps)

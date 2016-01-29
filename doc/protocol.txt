@@ -1,0 +1,22 @@
+struct msgrecord {
+	uint16_t id;
+	uint16_t status;
+}
+
+struct msgpacket {
+	uint16_t nstatuses;
+	struct msgrecord *statuses;
+}
+
+// Special IDs:  
+// 0 - should not be used normally, sets status to all devices
+// 1 - master ID (if this ID is present in the packet - the packet
+//  contains all known statuses and should be saved for reference)
+// Device may have multiple IDs (if one status is not enough or
+// one additional for broadcasting, not just receiving)
+
+// Statuses:
+// Higher bit is 0 - see statuses.txt
+// Higher bit is 1 - flags-based status (15 lower bits, specific for device)
+
+
