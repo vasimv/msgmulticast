@@ -1,16 +1,38 @@
+#include <stdlib.h>
 #include "libticker.h"
 
-static struct step *steps;
-static int curstep;
-
-static long lastmillis;
-static int waitfor;
-
-void stepreset(struct step steps[], int nstep) {
-	step = steps;
+Aticker::Aticker(struct step steps[], int nstep) {
+	mysteps = steps;
 	curstep = nstep;
+	lastmillis = millis();
+	waitfor = mysteps[curstep].tonext;
+	end = 0;
 }
 
-int stepcall() {
+int Aticker::stepcall() {
+	long curmillis = millis();
+
+	if ((curmillis - lastmillis) >= waitfor) {
+		callnext();
+		while (mysteps[curstep].tonext == 0)
+			callnext();		
+	} else
+		waitfor -= (curmillis - lastmillis);
+	lastmillis = curmillis;
 	return curstep;
+}
+
+void Aticker::callnext() {
+	if (end)
+		return;
+	(*mysteps[curstep].func)(mysteps[curstep].arg, mysteps[curstep].argpt);
+	curstep++;
+	waitfor = mysteps[curstep].tonext;
+	if (waitfor < 0)
+		end = 1;
+}
+
+void Aticker::loopback(int arg, void *argpt) {
+	curstep = arg;
+	waitfor = mysteps[curstep].tonext;
 }
