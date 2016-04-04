@@ -4,6 +4,9 @@
 #include <inttypes.h>
 #include <Arduino.h>
 
+#define ATICKER_LOOPBACK -1
+#define ATICKER_STOP -65535
+
 typedef void (*stepfunction)(int, void *);
 
 struct step {
@@ -17,8 +20,12 @@ struct step {
 
 class Aticker {
     public: 
+	Aticker();
 	// Init to step n with program in steps
 	Aticker(struct step steps[], int nstep);
+	
+	// Sets new program and step
+	void set(struct step steps[], int nstep);
 
 	// to call from  loop(), returns non-zero (step number) if next step was made
 	int stepcall();
