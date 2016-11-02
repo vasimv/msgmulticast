@@ -40,13 +40,11 @@ void Aticker::callnext() {
 			end = 1;
 		else {
 			curstep = abs(waitfor) - 1;
-			(*mysteps[curstep].func)(mysteps[curstep].arg, mysteps[curstep].argpt);
 			waitfor = mysteps[curstep].tonext;
-			curstep++;
 		}
 		return;
 	}
-	curstep++;
+        curstep++;
 }
 
 void Aticker::loopback(int arg, void *argpt) {

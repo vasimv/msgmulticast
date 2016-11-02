@@ -4,8 +4,8 @@
 #include <inttypes.h>
 #include <Arduino.h>
 
-#define ATICKER_LOOPBACK -1
-#define ATICKER_STOP -65535
+#define ATICKER_LOOPBACK ((int) -1)
+#define ATICKER_STOP ((int) -65535)
 
 typedef void (*stepfunction)(int, void *);
 
